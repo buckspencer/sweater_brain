@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace SweaterBrain.Controllers
 {
@@ -50,5 +53,20 @@ namespace SweaterBrain.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("sweaterresult")]
+        public async Task<object> GetSweaterAsync()
+        {
+            var lat = "34";
+            var lon = "-118";
+            var url = $"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={apiKey}&units=imperial";
+            using var client = new HttpClient();
+            string result = await client.GetStringAsync(url);
+
+            object jsonString = JsonConvert.DeserializeObject(result);
+            return jsonString;
+        }
+
+
     }
 }
