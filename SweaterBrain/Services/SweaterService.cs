@@ -1,28 +1,32 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using SweaterBrain.Models;
 
 namespace SweaterBrain.Services
 {
-
-    class SweaterService : ISweaterService
+    class SweaterService
     {
         // TODO: Key to secure storage.
+        public string OPEN_WEATHER_API_URL = $"http://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={OPEN_WEATHER_API_KEY}&units=imperial";
 
         // TODO: Currently lat&lon are hardcoded for Los Angeles, Ca
         public const string LAT = "34";
         public const string LON = "-118";
-        public string OPEN_WEATHER_API_URL = $"http://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=imperial";
 
+        private readonly HttpClient _httpClient;
 
-
-        public async Task<object> WeatherInfoRequest()
+        public SweaterService(HttpClient _httpClient)
         {
-            using var client = new HttpClient();
-            string result = await client.GetStringAsync(OPEN_WEATHER_API_URL);
-
-            object jsonString = JsonConvert.DeserializeObject(result);
-            return jsonString;
+            this._httpClient = _httpClient;
         }
+
+        public async Task<OpenWeatherResponse> RequestWeatherInfo()
+        {
+            var response = await _httpClient.GetAsync(OPEN_WEATHER_API_URL);
+            var body = await response.Content.ReadAsStringAsync();
+            var openWeatherResponse = OpenWeatherResponse.FromJson(body);
+            return openWeatherResponse;
+        }
+
     }
 }
