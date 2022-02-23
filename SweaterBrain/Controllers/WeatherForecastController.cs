@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using SweaterBrain.Services;
 
 namespace SweaterBrain.Controllers
 {
@@ -28,11 +29,11 @@ namespace SweaterBrain.Controllers
             _logger = logger;
         }
 
-        [HttpGet("sweaterresult")]
-        public async Task<object> GetSweaterAsync()
-        {
-            Services.SweaterService.RequestWeatherInfo();
-        }
+        //[HttpGet("sweaterresult")]
+        //public object GetSweater()
+        //{
+        //    Task<Models.OpenWeatherResponse> task = SweaterService.RequestWeatherInfo();
+        //}
 
 
     }

@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.Extensions.Configuration;
+using Moq;
 using Moq.Protected;
 using Newtonsoft.Json;
 using SweaterBrain.Models;
@@ -18,8 +19,10 @@ namespace SweaterBrainTests
         [Fact]
         public async Task ReturnsOpenWeatherResponseWhenRequestWeatherInfoIsCalled()
         {
+            var configuration = new Mock<IConfiguration>();
+            var configSection = new Mock<IConfigurationSection>();
             var _handlerMock = new Mock<HttpMessageHandler>();
-            _handlerMock.Protected()
+            _ = _handlerMock.Protected()
             .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(new HttpResponseMessage
             {
@@ -28,7 +31,8 @@ namespace SweaterBrainTests
             });
 
             var httpClient = new HttpClient(_handlerMock.Object);
-            var serviceService = new SweaterService(httpClient);
+            configuration.Setup(x => x.GetSection("MySection:Value")).Returns(configSection.Object);
+            var serviceService = new SweaterService(httpClient, (IConfiguration)configSection.Object);
             var retrievedInfo = await serviceService.RequestWeatherInfo();
 
             Assert.IsType<OpenWeatherResponse>(retrievedInfo);
