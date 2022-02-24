@@ -24,6 +24,30 @@ namespace SweaterBrain.Services
             OPEN_WEATHER_API_URL = $"http://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={api_key}&units=imperial";
         }
 
+        //public string CalculateCurrentBestSweater(OpenWeatherResponse retrievedInfo)
+        //{
+        //    var currentTemp = retrievedInfo.Main.Temp;
+
+        //    switch (currentTemp)
+        //    {
+        //        case < 65:
+        //            return// HEAVY;
+        //            break;
+
+        //        case > 65:
+        //            return// MEDIUM;
+        //            break;
+
+        //        case > 74:
+        //            return// LIGHT;
+        //            break;
+
+        //        default:
+        //            return;
+        //            break;
+        //    };
+        //}
+
         public async Task<OpenWeatherResponse> RequestWeatherInfo()
         {
             var response = await _httpClient.GetAsync(OPEN_WEATHER_API_URL);
