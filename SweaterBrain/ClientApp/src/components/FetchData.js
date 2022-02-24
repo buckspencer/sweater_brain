@@ -27,25 +27,18 @@ export class FetchData extends Component {
 
         return (
             <div>
-                <Card
-                >
+                <Card className="col-12 text-center">
                     <CardBody>
                         <CardTitle tag="h5">
-                            Today's sweater recommendation: 
+                            
                         </CardTitle>
                         <CardSubtitle
                             className="mb-2 text-muted"
                             tag="h6"
                         >
-                            Card subtitle
+                            Medium Weight do to a current temperature of  [TEMPERATURE HERE]
                         </CardSubtitle>
                         <img src={require('../images/medium_sweater.png').default} width="20%" height="20%" />
-                        <CardText>
-                            Some quick example text to build on the card title and make up the bulk of the card's content.
-                        </CardText>
-                        <Button>
-                            Button
-                        </Button>
                     </CardBody>
                 </Card>
             </div>
@@ -53,14 +46,15 @@ export class FetchData extends Component {
     }
 
   render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+    let contents = FetchData.renderForecastsTable(this.state.forecasts);
+    //let contents = this.state.loading
+    //  ? <p><em>Loading...</em></p>
+    //  : FetchData.renderForecastsTable(this.state.forecasts);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <h1 id="tabelLabel" >Sweater Suggestion Page</h1>
+            <p>Todays suggested sweater weight for Los Angeles California is...</p>
         {contents}
       </div>
     );
