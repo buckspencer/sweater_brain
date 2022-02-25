@@ -10,8 +10,8 @@ import {
 
 
 
-export class FetchData extends Component {
-    static displayName = FetchData.name;
+export class SweaterBrain extends Component {
+    static displayName = SweaterBrain.name;
 
   constructor(props) {
     super(props);
@@ -46,14 +46,14 @@ export class FetchData extends Component {
     }
 
   render() {
-    let contents = FetchData.renderForecastsTable(this.state.forecasts);
+    let contents = SweaterBrain.renderForecastsTable(this.state.forecasts);
     //let contents = this.state.loading
     //  ? <p><em>Loading...</em></p>
-    //  : FetchData.renderForecastsTable(this.state.forecasts);
+    //  : SweaterBrain.renderForecastsTable(this.state.forecasts);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Sweater Suggestion Page</h1>
+        <h1 id="tabelLabel" >Current Suggestion</h1>
             <p>Todays suggested sweater weight for Los Angeles California is...</p>
         {contents}
       </div>
