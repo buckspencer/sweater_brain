@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SweaterBrain
+namespace SweaterBrain.Models
 {
     public class MajorCityLocation
     {
