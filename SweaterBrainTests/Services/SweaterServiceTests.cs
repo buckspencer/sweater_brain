@@ -63,7 +63,7 @@ namespace SweaterBrainTests
             var serviceService = new SweaterService(httpClient, (IConfiguration)configSection.Object);
             var retrievedInfo = await serviceService.RequestWeatherInfo();
 
-            Assert.IsType<String>(serviceService.CalculateCurrentBestSweater(retrievedInfo))
+            Assert.IsType<string>(serviceService.CalculateCurrentBestSweater(retrievedInfo));
 
         }
     }
