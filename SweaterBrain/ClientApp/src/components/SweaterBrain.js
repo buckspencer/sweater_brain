@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser'
+
 import {
     Button,
     Card,
@@ -9,21 +11,34 @@ import {
 } from 'reactstrap';
 
 
-
 export class SweaterBrain extends Component {
     static displayName = SweaterBrain.name;
 
-  constructor(props) {
-    super(props);
-    this.state = { forecasts: [], sweaterUrl: "", loading: true };
-  }
+        constructor(props) {
+            super(props);
+            this.state = {
+                temperature: "",
+                feelsLike: "",
+                weight: "",
+                sweaterPath: "",
+                images: [],
+                loading: false
+            };
 
-  componentDidMount() {
-      this.populateWeatherData();
-      this.getTodaysSweater();
-  }
+            
+        }
 
-    static renderForecastsTable(forecasts) {
+        componentDidMount() {
+            var importAll = function importAll(r) {
+                let images = [];
+                r.keys().map(item => { images[item.replace('./', '')] = r(item); });
+                return images;
+            }
+            this.populateWeatherData(importAll)
+        }
+
+
+    static renderForecastsTable(temperature, feelsLike, weight, sweaterPath, images) {
 
         return (
             <div>
@@ -36,41 +51,47 @@ export class SweaterBrain extends Component {
                             className="mb-2 text-muted"
                             tag="h6"
                         >
-                            Medium Weight do to a current temperature of  [TEMPERATURE HERE]
+                            {weight} Weight due to a current temperature of {temperature}°
                         </CardSubtitle>
-                        <img src={require('../images/medium_sweater.png').default} width="20%" height="20%" />
+                        <img src={`${sweaterPath}`} width="20%" height="20%" alt="sweater" />
                     </CardBody>
                 </Card>
             </div>
         );
     }
 
-  render() {
-    let contents = SweaterBrain.renderForecastsTable(this.state.forecasts);
-    //let contents = this.state.loading
-    //  ? <p><em>Loading...</em></p>
-    //  : SweaterBrain.renderForecastsTable(this.state.forecasts);
+        render() {
+            let contents = this.state.loading
+              ? <p><em>Loading...</em></p>
+                : SweaterBrain.renderForecastsTable(
+                    this.state.temperature,
+                    this.state.feelsLike,
+                    this.state.weight,
+                    this.state.sweaterPath,
+                    this.state.images,
+                );
 
-    return (
-      <div>
-        <h1 id="tabelLabel" >Current Suggestion</h1>
-            <p>Todays suggested sweater weight for Los Angeles California is...</p>
-        {contents}
-      </div>
-    );
-  }
-
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast/list');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+        return (
+          <div>
+            <h1 id="tabelLabel" >Current Suggestion</h1>
+                <p>Todays suggested sweater weight for Los Angeles California is...</p>
+            {contents}
+          </div>
+        );
     }
 
+    async populateWeatherData(importAll) {
+        const response = await fetch('weatherforecast/suggester-data');
+        const data = await response.json();
+        const images = importAll(require.context('../images', false, /\.jpeg/));
 
-  async getTodaysSweater() {
-    const response = await fetch('weatherforecast/sweaterresult');
-    const data = await response.json();
-    this.setState({ sweaterUrl: data, loading: false });
-    console.log(data);
-  }
+        this.setState({
+            images: images,
+            temperature: data.temp,
+            feelsLike: data.feelsLike,
+            weight: data.weight,
+            sweaterPath: images[`${data.sweaterPath}`].default,
+            loading: false
+        });
+    }
 }
