@@ -1,11 +1,13 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using SweaterBrain.Models;
 
 namespace SweaterBrain.Services
 {
-    class SweaterService
+    internal class SweaterService
     {
         // TODO: Currently lat&lon are hardcoded for Los Angeles, Ca
         private const string LAT = "34";
@@ -23,44 +25,36 @@ namespace SweaterBrain.Services
             var api_key = _config["SweaterBrain:OPEN_WEATHER:API_KEY"];
             OPEN_WEATHER_API_URL = $"http://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={api_key}&units=imperial";
         }
-
-        public string CalculateCurrentBestSweater(OpenWeatherResponse retrievedInfo)
+     
+        public async Task<SuggesterDataDto> SuggesterData()
         {
-            var currentTemp = retrievedInfo.Main.Temp;
+            var response = await _httpClient.GetAsync(OPEN_WEATHER_API_URL);
+            var body = await response.Content.ReadAsStringAsync();
+            var openWeatherResponse = OpenWeatherResponse.FromJson(body);
 
-            var result = currentTemp switch
+            return CompileSuggesterData(openWeatherResponse);
+        }
+
+        private SuggesterDataDto CompileSuggesterData(OpenWeatherResponse retrievedInfo)
+        {
+
+            double _temp = retrievedInfo.Main.Temp;
+            string _feelsLike = retrievedInfo.Main.FeelsLike.ToString();
+
+            var result = _temp switch
             {
-                _ when currentTemp > 74 => currentTemp.ToString(),
-                _ when currentTemp > 65 => currentTemp.ToString(),
-                _ when currentTemp < 65 => currentTemp.ToString(),
+                _ when _temp > 74 => new SuggesterDataDto(_temp.ToString(), _feelsLike, "Light", Path("light")),
+                _ when _temp > 65 => new SuggesterDataDto(_temp.ToString(), _feelsLike, "Medium", Path("medium")),
+                _ when _temp < 65 => new SuggesterDataDto(_temp.ToString(), _feelsLike, "Heavy", Path("heavy")),
                 _ => throw new System.NotImplementedException()
             };
 
             return result;
         }
-             
-        public async Task<OpenWeatherResponse> RequestWeatherInfo()
+
+        private string Path(string weight)
         {
-            var response = await _httpClient.GetAsync(OPEN_WEATHER_API_URL);
-            var body = await response.Content.ReadAsStringAsync();
-            var openWeatherResponse = OpenWeatherResponse.FromJson(body);
-
-            return openWeatherResponse;
+            return $"{weight}_sweater2.jpeg";
         }
-
-        public async Task<TemperatureDataDto> RequestTemp()
-        {
-            var response = await _httpClient.GetAsync(OPEN_WEATHER_API_URL);
-            var body = await response.Content.ReadAsStringAsync();
-            var openWeatherResponse = OpenWeatherResponse.FromJson(body);
-
-            var tempObject = new TemperatureDataDto
-            {
-                Temp = openWeatherResponse.Main.Temp.ToString(),
-                FeelsLike = openWeatherResponse.Main.FeelsLike.ToString()
-            };
-            return tempObject;
-        }
-
     }
 }
