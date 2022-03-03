@@ -1,6 +1,9 @@
 # sweater_brain
 - A simple C#/React appplication that displays sweater suggestions based on selected city's temperature. 
 
+- Link to Trello board for Agile project management information: 
+[Agile Board](https://trello.com/b/s4tz37nX/sweater-brain)
+
 ## Techinical description of project: 
 This codebase reflects the use of calling an external API, doing calculations, and dynamically rendering various images and text on a JavaScript client. 
 
