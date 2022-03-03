@@ -14,7 +14,6 @@ namespace SweaterBrain.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly IConfiguration _config;
-
         private readonly List<MajorCityLocation> LocationList = new List<MajorCityLocation>()
         {
             new MajorCityLocation { CityName = "Los Angeles, Ca", Lat = "34", Lon = "-118" },
