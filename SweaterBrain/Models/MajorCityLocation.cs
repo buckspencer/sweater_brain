@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SweaterBrain.Models
+﻿namespace SweaterBrain.Models
 {
     public class MajorCityLocation
     {
