@@ -1,4 +1,4 @@
-# sweater_brain
+# Project name: Sweater Brain
 - A simple C#/React appplication that displays sweater suggestions based on selected city's temperature. 
 
 - Link to Trello board for Agile project management information: 
