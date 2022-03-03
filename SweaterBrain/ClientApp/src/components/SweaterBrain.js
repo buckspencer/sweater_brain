@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser'
-
 import {
-    Button,
     Card,
     CardBody,
     CardTitle,
     CardSubtitle,
-    CardText
 } from 'reactstrap';
-
 
 export class SweaterBrain extends Component {
     static displayName = SweaterBrain.name;
@@ -18,14 +13,12 @@ export class SweaterBrain extends Component {
             super(props);
             this.state = {
                 temperature: "",
-                feelsLike: "",
                 weight: "",
                 sweaterPath: "",
-                images: [],
                 loading: false
             };
 
-            
+
         }
 
         componentDidMount() {
@@ -38,14 +31,14 @@ export class SweaterBrain extends Component {
         }
 
 
-    static renderForecastsTable(temperature, feelsLike, weight, sweaterPath, images) {
+    static renderForecastsTable(temperature, weight, sweaterPath) {
 
         return (
             <div>
                 <Card className="col-12 text-center">
                     <CardBody>
                         <CardTitle tag="h5">
-                            
+
                         </CardTitle>
                         <CardSubtitle
                             className="mb-2 text-muted"
@@ -65,10 +58,8 @@ export class SweaterBrain extends Component {
               ? <p><em>Loading...</em></p>
                 : SweaterBrain.renderForecastsTable(
                     this.state.temperature,
-                    this.state.feelsLike,
                     this.state.weight,
                     this.state.sweaterPath,
-                    this.state.images,
                 );
 
         return (
@@ -86,9 +77,7 @@ export class SweaterBrain extends Component {
         const images = importAll(require.context('../images', false, /\.jpeg/));
 
         this.setState({
-            images: images,
             temperature: data.temp,
-            feelsLike: data.feelsLike,
             weight: data.weight,
             sweaterPath: images[`${data.sweaterPath}`].default,
             loading: false

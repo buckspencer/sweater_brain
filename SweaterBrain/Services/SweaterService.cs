@@ -9,7 +9,7 @@ namespace SweaterBrain.Services
 {
     internal class SweaterService
     {
-        // TODO: Currently lat&lon are hardcoded for Los Angeles, Ca
+        // TODO: Currently lat&lon are hardcoded for Los Angeles, Ca, plans are to augment for more cities.
         private const string LAT = "34";
         private const string LON = "-118";
 
@@ -21,7 +21,6 @@ namespace SweaterBrain.Services
         {
             _httpClient = httpClient;
             _config = config;
-
             var api_key = _config["SweaterBrain:OPEN_WEATHER:API_KEY"];
             OPEN_WEATHER_API_URL = $"http://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={api_key}&units=imperial";
         }
@@ -37,10 +36,8 @@ namespace SweaterBrain.Services
 
         private SuggesterDataDto CompileSuggesterData(OpenWeatherResponse retrievedInfo)
         {
-
             double _temp = retrievedInfo.Main.Temp;
             string _feelsLike = retrievedInfo.Main.FeelsLike.ToString();
-
             var result = _temp switch
             {
                 _ when _temp > 74 => new SuggesterDataDto(_temp.ToString(), _feelsLike, "Light", Path("light")),
