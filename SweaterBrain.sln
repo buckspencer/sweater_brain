@@ -7,7 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweaterBrain", "SweaterBrai
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E3E4490F-CF5F-4618-B5CF-34A70D4E9D1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweaterBrain.Tests", "SweaterBrainTests\SweaterBrain.Tests.csproj", "{B73D5D9B-0A98-4D58-B30B-672BBA816A9F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{37F24022-AABA-49E7-9E15-FD5F5DAF6D9C}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile.web = Dockerfile.web
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
