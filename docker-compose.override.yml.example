@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  sweaterbrain:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Developement
+      - API_KEY={OPEN WEATHER API KEY}
+    ports:
+      - 80
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
