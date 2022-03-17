@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     Card,
     CardBody,
-    CardTitle,
     CardSubtitle,
 } from 'reactstrap';
 
@@ -32,9 +31,6 @@ export class SweaterBrain extends Component {
             <div>
                 <Card className="col-12 text-center">
                     <CardBody>
-                        <CardTitle tag="h5">
-
-                        </CardTitle>
                         <CardSubtitle
                             className="mb-2 text-muted"
                             tag="h6"
