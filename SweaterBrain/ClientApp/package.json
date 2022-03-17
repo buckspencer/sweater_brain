@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.6.0",
+    "framer-motion": "^6.2.8",
     "jquery": "^3.6.0",
     "merge": "^2.1.1",
     "oidc-client": "^1.11.5",
@@ -11,16 +12,21 @@
     "react-dom": "^16.0.0",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.1.2",
+    "react-scripts": "^5.0.0",
     "reactstrap": "^8.4.1",
     "rimraf": "^2.6.2"
   },
   "devDependencies": {
     "ajv": "^6.12.6",
+    "babel-eslint": "^10.1.0",
     "cross-env": "^5.2.0",
+    "eslint": "^8.11.0",
     "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "nan": "^2.15.0",
-    "react-scripts": "^4.0.3",
     "typescript": "^3.9.10"
   },
   "eslintConfig": {
@@ -31,7 +37,8 @@
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src/"
+    "lint": "eslint ./src/",
+    "rimraf": "./node_modules/rimraf/bin.js"
   },
   "browserslist": {
     "production": [
