@@ -1,13 +1,13 @@
 # Project name: Sweater Brain
-- A simple C#/React appplication that displays sweater suggestions based on selected city's temperature. 
+- A simple C#/React appplication that displays sweater suggestions based on selected city's temperature.
 
-- Link to Trello board for Agile project management information: 
+- Link to Trello board for Agile project management information:
 [Agile Board](https://trello.com/b/s4tz37nX/sweater-brain)
 
-## Techinical description of project: 
-This codebase reflects the use of calling an external API, doing calculations, and dynamically rendering various images and text on a JavaScript client. 
+## Techinical description of project:
+This codebase reflects the use of calling an external API, doing calculations, and dynamically rendering various images and text on a JavaScript client.
 
-## Technologies: 
+## Technologies:
 
 Languages:
 - JS
@@ -25,3 +25,8 @@ Tests:
 
 <img width="977" alt="Screen Shot 2022-03-03 at 1 06 01 PM" src="https://user-images.githubusercontent.com/5303892/156646231-47e26ded-025e-4ced-93a8-d2adf69b23ed.png">
 
+
+## To run app locally:
+- From solution file:
+```docker build -t sweaterbrain -f Dockerfile.web .```
+```docker run -d -p 8080:80 --name sweaterbrain sweaterbrain```
