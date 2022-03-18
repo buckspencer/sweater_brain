@@ -3,8 +3,15 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 
+
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
+# install NodeJS 13.x
+# see https://github.com/nodesource/distributions/blob/master/README.md#deb
+RUN apt-get update -yq
+RUN apt-get install curl gnupg -yq
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN apt-get install -y nodejs
 COPY ["SweaterBrain/SweaterBrain.csproj", "SweaterBrain/"]
 RUN dotnet restore "SweaterBrain/SweaterBrain.csproj"
 COPY ./SweaterBrain ./SweaterBrain
