@@ -3,11 +3,17 @@ version: '3.4'
 services:
   sweaterbrain:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_ENVIRONMENT=Developement
     ports:
       - "80"
       - "443"
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    secrets:
+      - open_weather
+
+
+secrets:
+  open_weather:
+    file: ./ApiKey.txt

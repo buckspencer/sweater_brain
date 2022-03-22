@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY-}sweaterbrain
     build:
       context: .
-      dockerfile: SweaterBrain/Dockerfile
+      dockerfile: Dockerfile
