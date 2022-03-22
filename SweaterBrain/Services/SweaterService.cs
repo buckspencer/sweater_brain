@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -21,10 +21,10 @@ namespace SweaterBrain.Services
         {
             _httpClient = httpClient;
             _config = config;
-            var api_key = _config["SweaterBrain:OPEN_WEATHER:API_KEY"];
+            var api_key = _config["open_weather"];
             OPEN_WEATHER_API_URL = $"http://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={api_key}&units=imperial";
         }
-     
+
         public async Task<SuggesterDataDto> SuggesterData()
         {
             var response = await _httpClient.GetAsync(OPEN_WEATHER_API_URL);
