@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -51,7 +51,7 @@ namespace SweaterBrain.Services
 
         private string Path(string weight)
         {
-            return $"{weight}_sweater2.jpeg";
+            return $"https://futureengine.net/sweater/sweater_{weight}_2.jpg";
         }
     }
 }

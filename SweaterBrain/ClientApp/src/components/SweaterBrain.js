@@ -22,12 +22,7 @@ export class SweaterBrain extends Component {
         }
 
         componentDidMount() {
-            var importAll = function importAll(r) {
-                let images = [];
-                r.keys().map(item => { images[item.replace('./', '')] = r(item); });
-                return images;
-            }
-            this.populateWeatherData(importAll)
+            this.populateWeatherData();
         }
 
 
@@ -74,12 +69,11 @@ export class SweaterBrain extends Component {
     async populateWeatherData(importAll) {
         const response = await fetch('weatherforecast/suggester-data');
         const data = await response.json();
-        const images = importAll(require.context('../images', false, /\.jpeg/));
 
         this.setState({
             temperature: data.temp,
             weight: data.weight,
-            sweaterPath: images[`${data.sweaterPath}`].default,
+            sweaterPath: data.sweaterPath,
             loading: false
         });
     }
