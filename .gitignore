@@ -157,9 +157,6 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
-# Chutzpah Test files
-_Chutzpah*
-
 # Visual C++ cache files
 ipch/
 *.aps
@@ -403,3 +400,5 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+ApiKey.txt
