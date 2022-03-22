@@ -15,12 +15,12 @@
     <PackageReference Include="Moq" Version="4.16.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
+    <Folder Include="Services/" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Moq" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SweaterBrain\SweaterBrain.csproj" />
+    <ProjectReference Include="../SweaterBrain/SweaterBrain.csproj" />
   </ItemGroup>
 </Project>
