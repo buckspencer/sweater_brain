@@ -21,7 +21,7 @@ namespace SweaterBrain.Services
         {
             _httpClient = httpClient;
             _config = config;
-            var api_key = _config["open_weather"];
+            var api_key = _config["API_KEY"];
             OPEN_WEATHER_API_URL = $"http://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={api_key}&units=imperial";
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
@@ -19,7 +20,7 @@ namespace SweaterBrain
                 })
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config.AddKeyPerFile(directoryPath: "/run/secrets", optional: false);
+                    config.AddEnvironmentVariables();
                 });
     }
 }
