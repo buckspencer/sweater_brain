@@ -24,5 +24,6 @@ RUN dotnet publish "SweaterBrain.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV ASPNETCORE_URLS http://*:$PORT
-ENTRYPOINT ["dotnet","SweaterBrain.dll"]
+# ENV ASPNETCORE_URLS http://*:$PORT
+# ENTRYPOINT ["dotnet","SweaterBrain.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet SweaterBrain.dll
