@@ -20,6 +20,7 @@ namespace SweaterBrain
                 })
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
+                    config.AddJsonFile("secrets.json", optional: true);
                     config.AddEnvironmentVariables();
                 });
     }

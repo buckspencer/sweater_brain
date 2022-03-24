@@ -4,7 +4,6 @@ services:
   sweaterbrain:
     environment:
       - ASPNETCORE_ENVIRONMENT=Developement
-      - API_KEY={OPEN WEATHER API KEY}
     ports:
       - 80
     volumes:
