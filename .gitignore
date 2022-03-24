@@ -402,5 +402,4 @@ ASALocalRun/
 .localhistory/
 
 ApiKey.txt
-
-docker-compose.override.yml
+secrets.json

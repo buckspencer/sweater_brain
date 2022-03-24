@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.23" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules/**" />
     <None Remove="Microsoft.AspNetCore.SpaServices.Extensions" />
     <None Remove="Microsoft.Extensions.Configuration.KeyPerFile" />
+    <None Remove="Microsoft.Extensions.Configuration.Json" />
   </ItemGroup>
 
   <ItemGroup>
