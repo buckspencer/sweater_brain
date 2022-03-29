@@ -22,12 +22,14 @@ namespace SweaterBrain.Services
 
     public async Task<SuggesterDataDto> SuggesterData(string geoStr)
     {
-      var _url = BuildQueryUrl(geoStr);
-      var _response = await _httpClient.GetAsync(_url);
-      var _body = await _response.Content.ReadAsStringAsync();
-      var _openWeatherResponse = OpenWeatherResponse.FromJson(_body);
+        var _url = BuildQueryUrl(geoStr);
+        using (HttpResponseMessage _response = await _httpClient.GetAsync(_url))
+        {
+            string _body = await _response.Content.ReadAsStringAsync();
+            OpenWeatherResponse _openWeatherResponse = OpenWeatherResponse.FromJson(_body);
 
-      return CompileSuggesterData(_openWeatherResponse);
+            return CompileSuggesterData(_openWeatherResponse);
+        }
     }
 
     private SuggesterDataDto CompileSuggesterData(OpenWeatherResponse retrievedInfo)
