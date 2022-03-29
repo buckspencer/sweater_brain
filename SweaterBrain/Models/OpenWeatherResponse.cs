@@ -140,21 +140,8 @@ namespace SweaterBrain.Models
     public static OpenWeatherResponse FromJson(string json) => JsonConvert.DeserializeObject<OpenWeatherResponse>(json, SweaterBrain.Models.Converter.Settings);
   }
 
-  public static class Serialize
-  {
-    public static string ToJson(this OpenWeatherResponse self) => JsonConvert.SerializeObject(self, SweaterBrain.Models.Converter.Settings);
-  }
-
-  internal static class Converter
-  {
-    public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+  public static class SerializeOpenWeatherResponse
     {
-      MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-      DateParseHandling = DateParseHandling.None,
-      Converters =
-            {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-    };
+    public static string ToJson(this OpenWeatherResponse self) => JsonConvert.SerializeObject(self, Converter.Settings);
   }
 }
