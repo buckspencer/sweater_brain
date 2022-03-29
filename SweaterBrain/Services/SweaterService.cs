@@ -2,36 +2,32 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using SweaterBrain.Models;
 
 namespace SweaterBrain.Services
 {
     internal class SweaterService
     {
-        // TODO: Currently lat&lon are hardcoded for Los Angeles, Ca, plans are to augment for more cities.
-        private const string LAT = "34";
-        private const string LON = "-118";
-
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _config;
-        private readonly string OPEN_WEATHER_API_URL;
+        private readonly string _api_key;
 
         public SweaterService(HttpClient httpClient, IConfiguration config)
         {
             _httpClient = httpClient;
             _config = config;
-            var api_key = _config["API_KEY"];
-            OPEN_WEATHER_API_URL = $"http://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={api_key}&units=imperial";
+            _api_key = _config["API_KEY"];
+            
         }
 
-        public async Task<SuggesterDataDto> SuggesterData()
+        public async Task<SuggesterDataDto> SuggesterData(string geoStr)
         {
-            var response = await _httpClient.GetAsync(OPEN_WEATHER_API_URL);
-            var body = await response.Content.ReadAsStringAsync();
-            var openWeatherResponse = OpenWeatherResponse.FromJson(body);
+            var _url = BuildQueryUrl(geoStr);
+            var _response = await _httpClient.GetAsync(_url);
+            var _body = await _response.Content.ReadAsStringAsync();
+            var _openWeatherResponse = OpenWeatherResponse.FromJson(_body);
 
-            return CompileSuggesterData(openWeatherResponse);
+            return CompileSuggesterData(_openWeatherResponse);
         }
 
         private SuggesterDataDto CompileSuggesterData(OpenWeatherResponse retrievedInfo)
@@ -47,6 +43,14 @@ namespace SweaterBrain.Services
             };
 
             return result;
+        }
+
+        private string BuildQueryUrl(string geoStr)
+        {
+            string[] geoArr = geoStr.Split(',');
+            string _lat = geoArr[0];
+            string _lon = geoArr[1];
+            return $"http://api.openweathermap.org/data/2.5/weather?lat={_lat}&lon={_lon}&appid={_api_key}&units=imperial";
         }
 
         private string Path(string weight)

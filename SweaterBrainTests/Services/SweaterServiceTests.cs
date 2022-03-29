@@ -30,7 +30,9 @@ namespace SweaterBrainTests
             HttpClient httpClient = new HttpClient(_handlerMock.Object);
             _ = configuration.Setup(x => x.GetSection("MySection:Value")).Returns(configSection.Object);
             SweaterService serviceService = new SweaterService(httpClient, configSection.Object);
-            SuggesterDataDto retrievedInfo = await serviceService.SuggesterData();
+
+            var geoStr = "12, 15";
+            SuggesterDataDto retrievedInfo = await serviceService.SuggesterData(geoStr);
 
             Assert.IsType<SuggesterDataDto>(retrievedInfo);
 
