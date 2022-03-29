@@ -10,13 +10,13 @@ namespace SweaterBrain.Services
   {
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _config;
-    private readonly string _api_key;
+    private readonly string _OPEN_WEATHER_KEY;
 
     public SweaterService(HttpClient httpClient, IConfiguration config)
     {
       _httpClient = httpClient;
       _config = config;
-      _api_key = _config["API_KEY"];
+      _OPEN_WEATHER_KEY = _config["OPEN_WEATHER_KEY"];
 
     }
 
@@ -50,7 +50,7 @@ namespace SweaterBrain.Services
       string[] geoArr = geoStr.Split(',');
       string _lat = geoArr[0];
       string _lon = geoArr[1];
-      return $"http://api.openweathermap.org/data/2.5/weather?lat={_lat}&lon={_lon}&appid={_api_key}&units=imperial";
+      return $"http://api.openweathermap.org/data/2.5/weather?lat={_lat}&lon={_lon}&appid={_OPEN_WEATHER_KEY}&units=imperial";
     }
 
     private string Path(string weight)
