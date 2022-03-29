@@ -2,17 +2,16 @@
 
 namespace SweaterBrain.Models
 {
-    public class MajorCityLocationDto
+  public class MajorCityLocationDto
+  {
+    public MajorCityLocationDto(string cityName, List<string> latLon)
     {
-        public MajorCityLocationDto(string cityName, List<string> latLon){
-            CityName = cityName;
-            LatLon = latLon;
-        }
-
-        public string CityName { get; }
-
-        public List<string> LatLon { get; }
-
+      CityName = cityName;
+      LatLon = latLon;
     }
+
+    public string CityName { get; }
+    public List<string> LatLon { get; }
+  }
 
 }

@@ -37,7 +37,10 @@ export class NavMenu extends Component {
 				>
 					<Container>
 						<NavbarBrand tag={Link} to="/">
-              <img src={require("../logo/logo.svg").default} alt="sweater-brain-logo" />
+							<img
+								src={require("../logo/logo.svg").default}
+								alt="sweater-brain-logo"
+							/>
 						</NavbarBrand>
 						<NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
 						<Collapse
