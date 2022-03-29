@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,27 +15,32 @@ namespace SweaterBrain.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private readonly List<MajorCityLocation> LocationList = new List<MajorCityLocation>()
-        {
-            new MajorCityLocation { CityName = "Los Angeles, Ca", Lat = "34", Lon = "-118" },
-            new MajorCityLocation { CityName = "Athens, Ga.", Lat = "33", Lon = "83" },
-            new MajorCityLocation { CityName = "Bagley", Lat = "47", Lon = "95" },
-        };
 
-        public WeatherForecastController(IConfiguration config, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IConfiguration config, ILogger<WeatherForecastController> _logger)
         {
             this._config = config;
         }
 
         [HttpGet("suggester-data")]
-        public Task<SuggesterDataDto> GetSuggeterData()
+        public Task<SuggesterDataDto> GetSuggeterData(string cityGeo)
         {
+
             HttpClient _httpClient = new HttpClient();
-            Task<SuggesterDataDto> returnedTemp = new SweaterService(_httpClient, _config).SuggesterData();
+
+            Task<SuggesterDataDto> returnedTemp = new SweaterService(_httpClient, _config).SuggesterData(cityGeo);
 
             return returnedTemp;
         }
 
-
+        [HttpGet("city-selection")]
+        public List<MajorCityLocationDto> GetCitySelection()
+        {
+            var _locations = new List<MajorCityLocationDto>();
+            _locations.Add(new MajorCityLocationDto("Los Angeles, Ca", new List<string> { "34", "-118" } ));
+            _locations.Add(new MajorCityLocationDto("Athens, Ga.", new List<string> { "33", "-83" } ));
+            _locations.Add(new MajorCityLocationDto("Bagley, MN", new List<string> { "47", "-95" } ));
+            return _locations;
+        }
     }
+
 }

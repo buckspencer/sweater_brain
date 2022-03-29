@@ -4,25 +4,30 @@ import {
     CardBody,
     CardSubtitle,
 } from 'reactstrap';
+import { CityDropdown } from './CityDropdown';
 
 export class SweaterBrain extends Component {
     static displayName = SweaterBrain.name;
 
+
         constructor(props) {
             super(props);
+            this.onChangeCity = this.onChangeCity.bind(this);
             this.state = {
                 temperature: "",
                 weight: "",
                 sweaterPath: "",
                 loading: false
             };
-
-
         }
 
         componentDidMount() {
             this.populateWeatherData();
-        }
+    }
+
+    onChangeCity(cityGeo) {
+        this.populateWeatherData(cityGeo);
+    }
 
 
     static renderForecastsTable(temperature, weight, sweaterPath) {
@@ -53,17 +58,17 @@ export class SweaterBrain extends Component {
                     this.state.sweaterPath,
                 );
 
-        return (
-          <div>
-            <h1 id="tabelLabel" >Current Suggestion</h1>
-                <p>Todays suggested sweater weight for Los Angeles California is...</p>
+            return (
+                <div className="clearfix">
+                <h1 id="tabelLabel" className="float-left pr-2 mb-2" >Today's current sweater suggestion is:</h1>
+                    <div className="mt-2 float-right"><CityDropdown onChangeCity={this.onChangeCity} /></div>
             {contents}
           </div>
         );
     }
 
-    async populateWeatherData(importAll) {
-        const response = await fetch('weatherforecast/suggester-data');
+    async populateWeatherData(cityGeo = ["34", "-118"]) {
+        const response = await fetch('weatherforecast/suggester-data?cityGeo=' + cityGeo);
         const data = await response.json();
 
         this.setState({
