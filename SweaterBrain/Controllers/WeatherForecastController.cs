@@ -24,32 +24,12 @@ namespace SweaterBrain.Controllers
     }
 
     [HttpGet("suggester-data")]
-    public Task<SuggesterDataDto> GetSuggeterData(string cityGeo)
+    public Task<SuggesterDataDto> GetSuggeterData(string locationInfo)
     {
-
-      Task<SuggesterDataDto> returnedTemp = new SweaterService(_httpClient, _config).SuggesterData(cityGeo);
+      IGeoService _geoService = new GeoService(_httpClient, _config);
+      Task<SuggesterDataDto> returnedTemp = new SweaterService(_httpClient, _config, _geoService).SuggesterData(locationInfo);
 
       return returnedTemp;
-    }
-
-    [HttpGet("city-selection")]
-    public List<MajorCityLocationDto> GetCitySelection()
-    {
-        List<MajorCityLocationDto> _locations = new List<MajorCityLocationDto>
-        {
-            new MajorCityLocationDto("Los Angeles, Ca", new List<string> { "34", "-118" }),
-            new MajorCityLocationDto("Athens, Ga.", new List<string> { "33", "-83" }),
-            new MajorCityLocationDto("Bagley, MN", new List<string> { "47", "-95" })
-        };
-        return _locations;
-    }
-
-    [HttpGet("city-by-zip")]
-    public Task<MajorCityLocationDto> GetCityByZip(string postalCode)
-    {
-        Task<MajorCityLocationDto> result = new GeoService(_httpClient, _config).GeoByPostalCodeAsync(postalCode);
-
-        return result;
     }
   }
 
