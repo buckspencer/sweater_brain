@@ -24,7 +24,7 @@ Tests:
 
 ### Screenshots:
 
-<img width="977" alt="SweaterBrain Home" src="https://user-images.githubusercontent.com/5303892/160012509-ea7f99f9-d783-467b-8171-cbe1e318f998.png">
+<img width="1136" alt="Screen Shot 2022-03-31 at 4 24 43 PM" src="https://user-images.githubusercontent.com/5303892/161165452-b48cd40a-98c8-4800-88b0-a71bd38828bb.png">
 
 ## To run app locally:
 - Remove the 'example' from secrets.json and fill in the required values.
