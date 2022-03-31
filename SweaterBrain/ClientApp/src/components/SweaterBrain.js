@@ -1,6 +1,14 @@
 import React, { Component } from "react";
-import { Card, CardBody, CardSubtitle } from "reactstrap";
-import { CityDropdown } from "./CityDropdown";
+import {
+	Card,
+	CardBody,
+	CardSubtitle,
+	Form,
+	FormGroup,
+	Label,
+	Input,
+} from "reactstrap";
+import LocationInput, { CityDropdown } from "./LocationInput";
 
 export class SweaterBrain extends Component {
 	static displayName = SweaterBrain.name;
@@ -9,28 +17,42 @@ export class SweaterBrain extends Component {
 		super(props);
 		this.onChangeCity = this.onChangeCity.bind(this);
 		this.state = {
+			locationArea: "",
 			temperature: "",
 			weight: "",
 			sweaterPath: "",
+			majorCityLocationDto: {},
 			loading: false,
 		};
 	}
 
 	componentDidMount() {
-		this.populateWeatherData();
+		var storedLocation =
+			localStorage.getItem("inputValue") || "Beverly Hills, Ca";
+		this.populateWeatherData(storedLocation);
 	}
 
-	onChangeCity(cityGeo) {
-		this.populateWeatherData(cityGeo);
+	onChangeCity(locationInfo) {
+		this.populateWeatherData(locationInfo);
 	}
 
-	static renderForecastsTable(temperature, weight, sweaterPath) {
+	static renderForecastsTable(
+		temperature,
+		weight,
+		sweaterPath,
+		majorCityLocationDto
+	) {
 		return (
 			<div>
 				<Card className="col-12 text-center">
 					<CardBody>
+						<CardSubtitle className="mb-5" tag="h5">
+							Were you looking for {majorCityLocationDto["cityName"]}?
+						</CardSubtitle>
+
 						<CardSubtitle className="mb-2 text-muted" tag="h6">
-							{weight} Weight due to a current temperature of {temperature}°
+							We suggest a {weight} weight due to a current temperature of{" "}
+							{temperature}°
 						</CardSubtitle>
 						<img
 							src={`${sweaterPath}`}
@@ -53,26 +75,27 @@ export class SweaterBrain extends Component {
 			SweaterBrain.renderForecastsTable(
 				this.state.temperature,
 				this.state.weight,
-				this.state.sweaterPath
+				this.state.sweaterPath,
+				this.state.majorCityLocationDto
 			)
 		);
 
 		return (
 			<div className="clearfix">
 				<h1 id="tabelLabel" className="float-left pr-2 mb-2">
-					Today's current sweater suggestion is:
+					Enter a location for a sweater suggestion:
 				</h1>
 				<div className="mt-2 float-right">
-					<CityDropdown onChangeCity={this.onChangeCity} />
+					<LocationInput onChangeCity={this.onChangeCity} />
 				</div>
 				{contents}
 			</div>
 		);
 	}
 
-	async populateWeatherData(cityGeo = ["34", "-118"]) {
+	async populateWeatherData(locationInfo) {
 		const response = await fetch(
-			"weatherforecast/suggester-data?cityGeo=" + cityGeo
+			"weatherforecast/suggester-data?locationInfo=" + locationInfo
 		);
 		const data = await response.json();
 
@@ -80,6 +103,7 @@ export class SweaterBrain extends Component {
 			temperature: data.temp,
 			weight: data.weight,
 			sweaterPath: data.sweaterPath,
+			majorCityLocationDto: data.majorCityLocationDto,
 			loading: false,
 		});
 	}
