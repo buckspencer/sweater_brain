@@ -1,6 +1,6 @@
 # Project name: Sweater Brain
 ## View deployed app: [SweaterBrain](https://sweater-brain.herokuapp.com/)
-- A simple C#/React appplication that displays sweater suggestions based on selected city's temperature.
+- A simple C#/React application that displays sweater suggestions based on selected city's temperature.
 
 - Link to Trello board for Agile project management information:
 [Agile Board](https://trello.com/b/s4tz37nX/sweater-brain)
